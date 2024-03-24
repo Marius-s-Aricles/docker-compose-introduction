@@ -8,6 +8,7 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { UsersModule } from './users/users.module';
       port: 6379,
     }),
     UsersModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

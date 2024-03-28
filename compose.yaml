@@ -12,7 +12,6 @@ services:
     environment:
       DB_PASSWORD: password
       DB_USERNAME: user
-      DB_NAME: db
     networks:
       - private
     depends_on:
@@ -20,13 +19,13 @@ services:
         condition: service_started
       cache:
         condition: service_started
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://backend:3000/healthcheck"]
-    #   interval: 1m30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 40s
-    #   start_interval: 5s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://backend:3000/healthcheck"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      start_interval: 5s
 
   database: 
     image: mysql:latest
@@ -48,20 +47,20 @@ services:
       - cache-data:/data
 
     
-  # frontend: 
-  #   build: 
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #   ports: 
-  #   - "5173:5173"
-  #   networks:
-  #     - private 
-  #     - public
-  #   depends_on:
-  #     backend: 
-  #       condition: service_started
-  #   secrets: 
-  #     - my_certificate
+  frontend: 
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports: 
+    - "5173:5173"
+    networks:
+      - private 
+      - public
+    depends_on:
+      backend: 
+        condition: service_started
+    secrets: 
+      - my_certificate
 
 secrets:
   my_certificate: 

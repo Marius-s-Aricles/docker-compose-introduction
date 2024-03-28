@@ -6,8 +6,6 @@ COPY package.json .
 
 RUN npm install
 
-# Install Vite
-RUN npm install vite@latest -g
 
 COPY . .
 
